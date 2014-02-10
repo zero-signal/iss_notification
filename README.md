@@ -29,12 +29,12 @@ is from the invokers location dictates how often pass data is retrieved. These
 states are defined in the dictionary object iss_states but can be described as 
 follows:
 
-RECEDING 	(more than 45 minutes away, updates every 120s)
-APPROACHING   	(less than 45 minutes, but more than 15 minutes away, updates every 60s)
-CLOSING		(less than 15 minutes, but more than 5 minutes away, updates every 30s)
-INCOMING	(less than 5 minutes, updates every 15s)
-IMMINENT	(less than 1 minute, updates every 5s)
-OVERHEAD	(less than 0 seconds, updates after the estimated pass duration)
+- RECEDING 	(more than 45 minutes away, updates every 120s)
+- APPROACHING   	(less than 45 minutes, but more than 15 minutes away, updates every 60s)
+- CLOSING		(less than 15 minutes, but more than 5 minutes away, updates every 30s)
+- INCOMING	(less than 5 minutes, updates every 15s)
+- IMMINENT	(less than 1 minute, updates every 5s)
+- OVERHEAD	(less than 0 seconds, updates after the estimated pass duration)
 
 This scheme is used in order to minimise load on the open-notify API servers whilst 
 attempting to increase the acccuracy of notifications as the ISS approaches.
@@ -62,12 +62,12 @@ Invocation
 The only required paramters are a latitude/longitude pair, so the script can simply be
 invoked as follows to display pass data to the console:
 
-python ./iss_notitification.py --latitude 33.51 --longitude -78.53
+- python ./iss_notitification.py --latitude 33.51 --longitude -78.53
 
 Often, the screen utility is useful to start the process in a background window, like the
 following example (good for startup scripts):
 
-screen -d -m -S "ISS_NOTIFY" python ./iss_notification.py --latitude 33.51 --longitude -78.53
+- screen -d -m -S "ISS_NOTIFY" python ./iss_notification.py --latitude 33.51 --longitude -78.53
  --passes 1 --altitude 10 --serial /dev/ttyUSB0
 
 More detailed usage information can be found by invoking the scripts built in usage 
