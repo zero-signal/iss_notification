@@ -73,7 +73,7 @@ following example (good for startup scripts):
 More detailed usage information can be found by invoking the scripts built in usage 
 documentation as follows:
 
-python ./iss_notification.py --help
+- python ./iss_notification.py --help
 
 Tested on python version 2.7.5
 
