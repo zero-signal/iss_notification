@@ -47,7 +47,7 @@ iss_states = {
 
 
 class Leds():
-	"""Facilitates physical notifications of upcoming ISS passes by communicating to a serial attached arduino"""
+	"""A class that encapsulates functionality required to control RGB LED strips via and serially connected arduino"""
 	
 	cmd_delim_begin  = 0x24		# $ - Command start
 	cmd_delim_end    = 0x21		# ! - Command end
