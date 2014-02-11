@@ -146,9 +146,10 @@ def main(argv):
 
 			for state in Leds.State:
 				print 'Sending:', state
-				time.sleep(sleep_time)
 
 				leds.sendState(state)
+				time.sleep(sleep_time)
+
 
 			print ''
 		else:
