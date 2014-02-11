@@ -1,4 +1,6 @@
-iss_notification
+ISS Notification
 ================
 
-Python script and arduino firmware for retrieving upcoming ISS passes and controlling cheap LED strip lights via Infra-red
+International Space Station overhead pass notifications (using Python and Arduino).
+
+Github pages sources files for iss_notification project.
