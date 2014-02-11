@@ -1,5 +1,5 @@
-iss_notification.py
-------------------- 
+ISS Notification
+---------------- 
 
 Display upcoming passes of the International Space Station using the
 open source OpenNotify API at http://api.open-notify.org. Optionally,
