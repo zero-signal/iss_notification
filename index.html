@@ -66,26 +66,51 @@ Using the great <a href="http://open-notify.org">OpenNotify</a> API by Nathan Be
 <p>The script uses are series of simple states, which depending on how far the ISS is from the invokers location dictates how often pass data is retrieved. These states are defined in the dictionary object <code>iss_states</code> but can be described as follows:
 </p>
 <ul>
-<li><strong>RECEDING</strong>: ISS more than 45 minutes away, updates every 120s</li>
-<li><strong>APPROACHING</strong>: ISS less than 45 minutes away, but more than 15 minutes away, updates every 60s</li>
-<li><strong>CLOSING</strong>: ISS less than 15 minutes away, but more than 5 minutes away, updates every 30s</li>
-<li><strong>INCOMING</strong>: ISS less than 5 minutes away, but more than 1 minute away, updates every 15s</li>
-<li><strong>IMMINENT</strong>: ISS less than 1 minute away, updates every 5 seconds</li>
+<li><strong>RECEDING</strong>: ISS &gt; 45 mins away, update every 120s</li>
+<li><strong>APPROACHING</strong>: ISS &lt; 45 mins away, but &gt; 15 mins away, update every 60s</li>
+<li><strong>CLOSING</strong>: ISS &lt; 15 mins away, but &gt; 5 mins away, update every 30s</li>
+<li><strong>INCOMING</strong>: ISS &lt; 5 mins away, but &gt; 1 min away, update every 15s</li>
+<li><strong>IMMINENT</strong>: ISS &lt; 1 min away, update every 5 seconds</li>
 <li><strong>OVERHEAD</strong>: ISS overhead, no update until pass has completed.</li>
 </ul>
 
 <p>This scheme is used in order to minimise load on the open-notify API servers whilst attempting to increase the accuracy of the notifications as the ISS approaches the observers location.
 </p>
 
-<p>If using the <code>--serial</code> option, different codes are sent (currently just simple ASCII values) according to the 'state' transitions (see above). Currently, the script outputs the letters A thru F, with Z being denoted as a test command. Commands are delimited by a leading '$' and a trailing '!' 
+<p>If using the <code>--serial</code> option, different codes are sent (currently just simple ASCII values) according to the 'state' transitions (see above). Currently, the script outputs the letters A thru F, with Z being denoted as a test command. 
+</p>
+<p>
+Commands are delimited by a leading '$' and a trailing '!' 
 </p>
 
-<h2><a name="python-script-invocation" class="anchor" href="#python-script-invocation"><span class="octicon octicon-link"></span></a>Invocation</h2>
+<h4><a name="python-script-invocation" class="anchor" href="#python-script-invocation"><span class="octicon octicon-link"></span></a>Invocation</h4>
 
 <p>The only required parameters for the script are a longitude and latitude pair, so the script can simply be invoked as follows to display pass data to the terminal window:
 </p>
+
 <pre><code>python ./iss_notitification.py --latitude 33.51 --longitude -78.53</code></pre>
-<p>Note: This will NOT output anything to a serial port</p>
+
+<p>Note: This will NOT output anything to a serial port. To do so, add the <code>--serial</code> command line argument as follows:</p>
+
+<pre><code>python ./iss_notitification.py --latitude 33.51 --longitude -78.53 --serial /dev/ttyUSB0</code></pre>
+
+<p>Often, the screen utility is useful to start the process in a background (detached) state, like the following example. This is useful for running the script within a startup script:
+
+<pre><code>screen -d -m -S "ISS_NOTIFY" python ./iss_notification.py --latitude 33.51 --longitude -78.53 --serial /dev/ttyUSB0</code></pre>
+
+<p>More detailed usage information (including information on additional command line options not discussed here) can be found by invoking the scripts built in usage documentation as follows:
+
+<pre><code>python ./iss_notification.py --help</code></pre>
+
+<h4><a name="python-script-requirements" class="anchor" href="#python-script-requirements"><span class="octicon octicon-link"></span></a>Requirements</h4>
+
+<p>This script was developed and tested on <strong>Python v2.7.5</strong> and is known not to work without modification v3.x</p>
+<p>The script also requires the following libraries:</p>
+<ul>
+<li>python-requests</li>
+<li>python-serial</li>
+<li>python-enum34</li>
+</ul>
 
 <h3>
 <a name="arduino-hardware" class="anchor" href="#arduino-hardware"><span class="octicon octicon-link"></span></a>Arduino Hardware</h3>
@@ -94,6 +119,11 @@ Using the great <a href="http://open-notify.org">OpenNotify</a> API by Nathan Be
 
 <h3>
 <a name="arduino-firmware" class="anchor" href="#arduino-firmware"><span class="octicon octicon-link"></span></a>Arduino Firmware</h3>
+
+<h3>
+<a name="video" class="anchor" href="#video"><span class="octicon octicon-link"></span></a>Video</h3>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/Plh9phU5w5k" frameborder="0" allowfullscreen></iframe>
 
 <h3>
 <a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
@@ -115,6 +145,13 @@ This software and its documentation is provided as-is. I take no responsibility 
 <p>
 This script and associated instructions are provided purely for casual observations of ISS passes.
 </p>
+
+<h3>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License and Copyright</h3>
+<p>Copyright (C) 2014 - Zerosignal</p>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
       </section>
 
     </div>
