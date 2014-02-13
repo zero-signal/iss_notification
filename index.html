@@ -66,7 +66,26 @@ Using the great <a href="http://open-notify.org">OpenNotify</a> API by Nathan Be
 <p>The script uses are series of simple states, which depending on how far the ISS is from the invokers location dictates how often pass data is retrieved. These states are defined in the dictionary object <code>iss_states</code> but can be described as follows:
 </p>
 <ul>
-<li><strong>RECEDING
+<li><strong>RECEDING</strong>: ISS more than 45 minutes away, updates every 120s</li>
+<li><strong>APPROACHING</strong>: ISS less than 45 minutes away, but more than 15 minutes away, updates every 60s</li>
+<li><strong>CLOSING</strong>: ISS less than 15 minutes away, but more than 5 minutes away, updates every 30s</li>
+<li><strong>INCOMING</strong>: ISS less than 5 minutes away, but more than 1 minute away, updates every 15s</li>
+<li><strong>IMMINENT</strong>: ISS less than 1 minute away, updates every 5 seconds</li>
+<li><strong>OVERHEAD</strong>: ISS overhead, no update until pass has completed.</li>
+</ul>
+
+<p>This scheme is used in order to minimise load on the open-notify API servers whilst attempting to increase the accuracy of the notifications as the ISS approaches the observers location.
+</p>
+
+<p>If using the <code>--serial</code> option, different codes are sent (currently just simple ASCII values) according to the 'state' transitions (see above). Currently, the script outputs the letters A thru F, with Z being denoted as a test command. Commands are delimited by a leading '$' and a trailing '!' 
+</p>
+
+<h2><a name="python-script-invocation" class="anchor" href="#python-script-invocation"><span class="octicon octicon-link"></span></a>Invocation</h2>
+
+<p>The only required parameters for the script are a longitude and latitude pair, so the script can simply be invoked as follows to display pass data to the terminal window:
+</p>
+<pre><code>python ./iss_notitification.py --latitude 33.51 --longitude -78.53</code></pre>
+<p>Note: This will NOT output anything to a serial port</p>
 
 <h3>
 <a name="arduino-hardware" class="anchor" href="#arduino-hardware"><span class="octicon octicon-link"></span></a>Arduino Hardware</h3>
