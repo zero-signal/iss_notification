@@ -88,15 +88,15 @@ Commands are delimited by a leading '$' and a trailing '!'
 <p>The only required parameters for the script are a longitude and latitude pair, so the script can simply be invoked as follows to display pass data to the terminal window:
 </p>
 
-<pre><code>python ./iss_notitification.py --latitude 33.51 --longitude -78.53</code></pre>
+<pre><code>python ./iss_notitification.py --latitude 11.11 --longitude 22.22</code></pre>
 
 <p>Note: This will NOT output anything to a serial port. To do so, add the <code>--serial</code> command line argument as follows:</p>
 
-<pre><code>python ./iss_notitification.py --latitude 33.51 --longitude -78.53 --serial /dev/ttyUSB0</code></pre>
+<pre><code>python ./iss_notitification.py --latitude 11.11 --longitude 22.22 --serial /dev/ttyUSB0</code></pre>
 
 <p>Often, the screen utility is useful to start the process in a background (detached) state, like the following example. This is useful for running the script within a startup script:
 
-<pre><code>screen -d -m -S "ISS_NOTIFY" python ./iss_notification.py --latitude 33.51 --longitude -78.53 --serial /dev/ttyUSB0</code></pre>
+<pre><code>screen -d -m -S "ISS_NOTIFY" python ./iss_notification.py --latitude 11.11 --longitude 22.22 --serial /dev/ttyUSB0</code></pre>
 
 <p>More detailed usage information (including information on additional command line options not discussed here) can be found by invoking the scripts built in usage documentation as follows:
 
@@ -104,7 +104,7 @@ Commands are delimited by a leading '$' and a trailing '!'
 
 <h4><a name="python-script-requirements" class="anchor" href="#python-script-requirements"><span class="octicon octicon-link"></span></a>Requirements</h4>
 
-<p>This script was developed and tested on <strong>Python v2.7.5</strong> and is known not to work without modification v3.x</p>
+<p>This script was developed and tested on <strong>Python v2.7.5</strong> and is known not to work without modification on <strong>v3.x</strong></p>
 <p>The script also requires the following libraries:</p>
 <ul>
 <li>python-requests</li>
@@ -114,6 +114,16 @@ Commands are delimited by a leading '$' and a trailing '!'
 
 <h3>
 <a name="arduino-hardware" class="anchor" href="#arduino-hardware"><span class="octicon octicon-link"></span></a>Arduino Hardware</h3>
+<p>The Arduino hardware for this project is extremely simple. It consists of the following components:</p>
+<ul>
+<li>1 x Arduino Duemilanove (or Uno, most standard arduino boards should work)</li>
+<li>1 x TSAL 6400 940nm IR-LED</li>
+<li>1 x 47R 1/4w resistor</li>
+<li>A couple jumper wires</li>
+<li>A box to put it all in (optional</li>
+</ul>
+<p>Connecting up the hardware is shown in the diagram below:</p>
+<img src="images/schematic.png" width="300" height="300" align="center" />
 <p>For more information on recording codes from the original IR remote and further detailed documentation on the Aruino IRremote library see <a href="http://www.righto.com/2009/08/multi-protocol-infrared-remote-library.html">this</a> page.
 </p>
 
