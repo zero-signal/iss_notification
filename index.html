@@ -44,21 +44,37 @@
 I recently bought some cheap RGB LED strip lights, which included 16.4ft of weatherproof RGB LEDs, an infra-red receiver unit to control the strip, an AC power adapter and a 44 button remote control all for about $20. LEDs are not addressable but they are easy and cheap to find. As you can see from the image below these were 'Supernight' branded and are easy to find online.
 </p>
 <img src="images/leds.jpg" width="300" height="300" align="center" />
+<br />
 <p>
 At first I thought they were cool just being used to light up my office, but soon thought I'd have a go at controlling them using an Arduino. I did not want to damage the remote or the receiver so looked at using an IR LED hooked up to my ageing Arduino Duemilanove to control the light strip.
 </p>
-<p>Using the excellent <a href="https://github.com/shirriff/Arduino-IRremote">IRremote</a> library from Ken Shirriff I was easily able to record the signals from the original remote control unit and play them back using an Arduino. So far so good but I needed a project. Enter the International Space Station (ISS).
+<p>Using the excellent <a href="https://github.com/shirriff/Arduino-IRremote">IRremote</a> library from Ken Shirriff I was easily able to record the signals from the original remote control unit and play them back using an Arduino. So far so good but I needed a project.
+</p>
+<p>Enter the International Space Station (ISS).
 </p>
 <p>
 Using the great <a href="http://open-notify.org">OpenNotify</a> API by Nathan Bergey I created some scripts and Arduino firmware to control the strip lights according to the current position of the ISS! I have seen similar projects such as this before (in fact Nathan has one up on Kickstarter which OpenNotify was created to support) but I thought I'd use what I already had lying around!
 </p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h3>
+<a name="python-script" class="anchor" href="#python-script"><span class="octicon octicon-link"></span></a>Python script</h3>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>The included <code>iss_notification.py</code> script uses the open source <a href="http://open-notify.org">OpenNotify</a> API to retrieve calculated overhead passes of the ISS for a given observation position defined by latitude/logitude and altiude.
+</p>
+<p>Retrieved passes get printed to the terminal window and optionally simple 'status' codes can be sent over a serial port (which is specified by the <code>-s</code> or <code>--serial</code> command line option. This is intended to be used in order to send some physical indication of upcoming ISS passes and how far away in time they are. In my case, I'm using receiving these commands with an Arduino and using it to replay the IR codes to control the LEDs.
+</p>
+<p>The script uses are series of simple states, which depending on how far the ISS is from the invokers location dictates how often pass data is retrieved. These states are defined in the dictionary object <code>iss_states</code> but can be described as follows:
+</p>
+<ul>
+<li><strong>RECEDING
+
+<h3>
+<a name="arduino-hardware" class="anchor" href="#arduino-hardware"><span class="octicon octicon-link"></span></a>Arduino Hardware</h3>
+<p>For more information on recording codes from the original IR remote and further detailed documentation on the Aruino IRremote library see <a href="http://www.righto.com/2009/08/multi-protocol-infrared-remote-library.html">this</a> page.
+</p>
+
+<h3>
+<a name="arduino-firmware" class="anchor" href="#arduino-firmware"><span class="octicon octicon-link"></span></a>Arduino Firmware</h3>
 
 <h3>
 <a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
