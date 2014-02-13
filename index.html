@@ -44,7 +44,7 @@
 I recently bought some cheap RGB LED strip lights, which included 16.4ft of weatherproof RGB LEDs, an infra-red receiver unit to control the strip, an AC power adapter and a 44 button remote control all for about $20. LEDs are not addressable but they are easy and cheap to find. As you can see from the image below these were 'Supernight' branded and are easy to find online.
 </p>
 <img src="images/leds.jpg" width="300" height="300" align="center" />
-<br />
+<p/>
 <p>
 At first I thought they were cool just being used to light up my office, but soon thought I'd have a go at controlling them using an Arduino. I did not want to damage the remote or the receiver so looked at using an IR LED hooked up to my ageing Arduino Duemilanove to control the light strip.
 </p>
@@ -114,16 +114,18 @@ Commands are delimited by a leading '$' and a trailing '!'
 
 <h3>
 <a name="arduino-hardware" class="anchor" href="#arduino-hardware"><span class="octicon octicon-link"></span></a>Arduino Hardware</h3>
-<p>The Arduino hardware for this project is extremely simple. It consists of the following components:</p>
+<p>The Arduino hardware for this project is extremely simple. Basically it is an IR-LED (with current limiting resistor) attached to Pin 3 (PWM output) of the Arduino.</p>
+<p>For the sake of completeness here are the components I used for the project:</p>
 <ul>
 <li>1 x Arduino Duemilanove (or Uno, most standard arduino boards should work)</li>
 <li>1 x TSAL 6400 940nm IR-LED</li>
 <li>1 x 47R 1/4w resistor</li>
-<li>A couple jumper wires</li>
-<li>A box to put it all in (optional</li>
+<li>A couple of jumper wires</li>
+<li>A box to put it all in (optional)</li>
 </ul>
 <p>Connecting up the hardware is shown in the diagram below:</p>
 <img src="images/schematic.png" width="500" align="center" />
+<p/>
 <p>For more information on recording codes from the original IR remote and further detailed documentation on the Aruino IRremote library see <a href="http://www.righto.com/2009/08/multi-protocol-infrared-remote-library.html">this</a> page.
 </p>
 
@@ -134,12 +136,32 @@ Commands are delimited by a leading '$' and a trailing '!'
 
 <h3>
 <a name="arduino-firmware" class="anchor" href="#arduino-firmware"><span class="octicon octicon-link"></span></a>Arduino Firmware</h3>
+<p>Like the hardware, the Arduino firmware for this project is very simple. Just load it up in the Arduino IDE, choose your board and serial port from the IDE menus and upload the sketch to the board.</p>
+
+<p>Simply, the Arduino firmware listens for commands from the Python script, and once the command has been parsed correctly, uses the command to send the corresponding 'code' to the LED strip receiver in order to change the light colors.</p>
+
+<p>Generally, once a new command is received, the firmware uses a couple of simple timers to 'blink' the strips between the old and new colors in order to grab the attention of anyone nearby.</p>
+
+<p>The colors used are as follows:</p>
+<ul>
+<li><strong>RECEDING</strong>: Red (Code: $A!)</li>
+<li><strong>APPROACHING</strong>: Orange (Code: $B!)</li>
+<li><strong>CLOSING</strong>: Yellow (Code: $C!)</li>
+<li><strong>INCOMING</strong>: Green (Code: $D!)</li>
+<li><strong>IMMINENT</strong>: Green/Blue (flashing continuously, Code: $E!)</li>
+<li><strong>OVERHEAD</strong>: Blue (Code: $F!)</li>
+</ul>
+
+<p>The firmware also accepts a test command ($Z!) which will cycle through the codes above. This gets called when the <code>iss_notification.py</code> script first starts in order to provide visual confirmation that everything is working as intended.</p>
+
+<h4><a name="additional-libraries" class="anchor" href="#additional-libraries"><span class="octicon octicon-link"></span></a>Additional Libraries</h4>
+<p>The Arduino firmware requires Ken Shirriff's IRremote library installed on your system in order to compile and upload the sketch</p>
 
 <h3>
 <a name="video" class="anchor" href="#video"><span class="octicon octicon-link"></span></a>Video</h3>
 
 <iframe width="420" height="315" src="//www.youtube.com/embed/Plh9phU5w5k" frameborder="0" allowfullscreen></iframe>
-
+<p/>
 <h3>
 <a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
 
@@ -155,7 +177,9 @@ The Arduino library <a href="https://github.com/shirriff/Arduino-IRremote">IRrem
 <a name="disclaimer" class="anchor" href="#disclaimer"><span class="octicon octicon-link"></span></a>Disclaimer</h3>
 
 <p>
-This software and its documentation is provided as-is. I take no responsibility for the accuracies of this script or any of the external services/APIs that it may use to generate its notifications. Please be aware that notifications are only accurate to within a few seconds and are not intended to give scientifically precise indications of the ISS' current orbital position (and as such, should not be relied upon to do so).
+This software and its documentation is provided as-is. I take no responsibility for the accuracies of this script or any of the external services/APIs that it may use to generate its notifications. 
+</p>
+<p>Please be aware that notifications are only accurate to within a few seconds and are not intended to give scientifically precise indications of the ISS' current orbital position (and as such, should not be relied upon to do so).
 </p>
 <p>
 This script and associated instructions are provided purely for casual observations of ISS passes.
