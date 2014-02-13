@@ -48,7 +48,7 @@ class Leds():
                 INCOMING      	= 0x44	# 'D'
                 IMMINENT      	= 0x45	# 'E'
                 OVERHEAD      	= 0x46  # 'F'
-		TEST 		= 0x5A	# 'Z'
+	#	TEST 		= 0x5A	# 'Z'
 
 	def __init__(self):
 		pass
@@ -98,10 +98,11 @@ class Leds():
 def usage():
 	print ''
 	print 'Usage:'
-	print '\t', sys.argv[0], "-s <port> [-t <seconds>] [-h]" 
+	print '\t', sys.argv[0], "-s <port> [-i <iterations>] [-t <seconds>] [-h]" 
 	print ''
 	print 'Where:'
 	print '\t-s, --serial <port>\t\t:\tUse the specified serial port to indicate a pass'
+	print '\t-i, --iterations <num>\t:\tThe number of iterations of the command sequence'
 	print '\t-t, --time <seconds>\t\t:\tDelay time between sending commmands. Defaults to 10s.'
 	print '\t-h, --help\t\t\t:\tDisplay this message'
 	print ''
@@ -113,8 +114,10 @@ def main(argv):
 
 		sleep_time = 10
 
+		iterations = 1
+
 		try:
-			opts, args = getopt.getopt(argv,"hs:t:",["help", "serial=", "time="])
+			opts, args = getopt.getopt(argv,"hs:i:t:",["help", "serial=", "iterations=","time="])
    		except getopt.GetoptError:
 			print '\nERROR: Incorrect options specified!\n'
       			usage()
@@ -129,6 +132,8 @@ def main(argv):
 	      			elif opt in ("-s", "--serial"):
 					serial = True
 					serial_port = arg
+				elif opt in ("-1", "--iterations"):
+					iterations = int(arg)
 				elif opt in ("-t", "--time"):
 					sleep_time = int(arg)
 		except ValueError:
@@ -141,15 +146,15 @@ def main(argv):
 			serial = leds.setup(serial_port)
 
 			print ''
-			print 'Sleep time between commands is:', sleep_time, 'seconds'
+			print 'Sleep time between commands is:', sleep_time, 'seconds, iterations is', iterations
 			print ''
 
-			for state in Leds.State:
-				print 'Sending:', state
+			for i in range(0,iterations):
+				for state in Leds.State:
+					print 'Sending:', state
 
-				leds.sendState(state)
-				time.sleep(sleep_time)
-
+					leds.sendState(state)
+					time.sleep(sleep_time)
 
 			print ''
 		else:

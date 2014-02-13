@@ -74,6 +74,11 @@ IRsend irsend;
 
 void setup() {
   Serial.begin(9600); 
+
+  curr_val = LED_STRIP_RED;
+  last_val = LED_STRIP_RED;
+  
+  send_code(curr_val);
 }
 
 /*
